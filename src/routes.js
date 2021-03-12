@@ -7,6 +7,7 @@ const routes = express.Router();
 routes.get('/navers', NaverController.index);
 routes.post('/navers', NaverController.store);
 routes.get('/navers/:naver_id', NaverController.show);
+routes.get('/order', NaverController.order);
 
 routes.get('/projects', ProjectController.index);
 routes.get('/projects/count', ProjectController.count);

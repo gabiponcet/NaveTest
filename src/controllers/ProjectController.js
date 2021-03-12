@@ -4,7 +4,9 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     async index(req,res) {
-        const projects = await Project.findAll();
+        const projects = await Project.findAll({
+            attributes: ['id', 'name'],
+        });
 
         return res.json(projects);
     },
@@ -13,7 +15,9 @@ module.exports = {
         const { project_id } = req.params;
     
         const project = await Project.findByPk( project_id , {
-            include: { association: 'navers' }
+            include: { 
+                association: 'navers'
+             }
         });
         return res.json(project);
     },
@@ -26,11 +30,16 @@ module.exports = {
     },
 
     async count(req,res) {
-        const projects = await Project.findAll( {
-            include: { association: 'navers' },
+        const projects = await Project.findAndCountAll( {
+            include: [
+                { association: 'navers', 
+                required: true,
+                distinct: true,
+                col: 'naver_id'
+            }
+            ]
         });
-        const navers =await Project.count({ naver_id });
-        console.log(navers);
+        
         return res.json(projects);
     },
 

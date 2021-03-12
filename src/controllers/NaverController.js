@@ -4,7 +4,9 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     async index(req,res) {
-        const navers = await Naver.findAll();
+        const navers = await Naver.findAll({
+            attributes: [ 'id', 'name', 'birthdate', 'job_role', 'admission_date'],
+        });
 
         return res.json(navers); 
     },
@@ -25,5 +27,18 @@ module.exports = {
         const naver = await Naver.create({ id, name, job_role, birthdate, admission_date });
 
         return res.json(naver);
+    },
+
+    async order(req,res) {
+        const navers = await Naver.findAll({
+            attributes: [ 
+                'id', 'name', 'birthdate', 'job_role', 'admission_date'
+            ],
+            order: [
+                ['admission_date', 'ASC'],
+            ]
+        });
+
+        return res.json(navers);  
     }
 }
