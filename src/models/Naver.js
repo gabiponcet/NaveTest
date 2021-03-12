@@ -11,6 +11,10 @@ class Naver extends Model {
             sequelize
         })
     }
+     static associate(models) {
+        this.belongsToMany(models.Project, { foreignKey: 'naver_id', through: 'navers_projects', as: 'projects'});
+    } 
+
 }
 
 module.exports = Naver;

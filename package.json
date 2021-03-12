@@ -1,8 +1,8 @@
 {
   "name": "naveteste",
-  "version":"1.0.0",
+  "version": "1.0.0",
   "main": "index.js",
-  "lincense":"MIT",
+  "lincense": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js"
   },
@@ -10,7 +10,8 @@
     "express": "^4.17.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
