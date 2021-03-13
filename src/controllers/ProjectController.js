@@ -31,15 +31,10 @@ module.exports = {
 
     async count(req,res) {
         const projects = await Project.findAndCountAll( {
-            include: [
-                { association: 'navers', 
-                required: true,
-                distinct: true,
-                col: 'naver_id'
-            }
-            ]
+            include: { association: 'navers' },
+            count: 'navers',
+            distinct: true,
         });
-        
         return res.json(projects);
     },
 
