@@ -1,6 +1,8 @@
 const Naver = require('../models/Naver');
 const Project = require('../models/Project');
 const { v4: uuidv4 } = require('uuid');
+const { where } = require('sequelize');
+const { literal } = require('sequelize');
 
 module.exports = {
     async index(req,res) {
@@ -29,15 +31,6 @@ module.exports = {
         return res.json(projects);
     },
 
-    async count(req,res) {
-        const projects = await Project.findAndCountAll( {
-            include: { association: 'navers' },
-            count: 'navers',
-            distinct: true,
-        });
-        return res.json(projects);
-    },
-
     async store(req,res) {
         const { naver_id, name } = req.body;
 
@@ -57,5 +50,12 @@ module.exports = {
         await naver.addProject(project);
 
         return res.json(project);
-    }
+    },
+
+    async count(req,res) {
+        const projects = await Project.findAndCountAll( {
+            include: { association: 'navers' },  
+        });
+        return res.json(projects);
+    },
 }
